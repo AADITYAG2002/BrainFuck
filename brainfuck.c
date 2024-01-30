@@ -11,18 +11,22 @@ struct STACK {
     int stack_arr[STACK_SIZE];
     int top;
 };
-void push(struct STACK stack, int val){
-    stack.stack_arr[++stack.top] = val;
+void push(struct STACK *stack, int val){
+    stack->stack_arr[++stack->top] = val;
 }
 
-void pop(struct STACK stack){
-    stack.top--;
+int pop(struct STACK *stack){
+    return stack->stack_arr[stack->top--];
 }
 
 void  interpreter(char *program){
     int inst_ptr = 0;
     int mem_ptr = 0;
     int memory[MEMORY_SIZE] = {0};
+    struct STACK *stackptr, stack;
+    stackptr = &stack;
+    stackptr->top = -1;
+    
     for(;program[inst_ptr] != '\0';++inst_ptr){
         switch ((int)program[inst_ptr]){
             case 62: // > increment mem ptr
