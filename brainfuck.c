@@ -39,11 +39,13 @@ void  interpreter(char *program){
                 break;
             case 46: // . output curr mem to stdio
                 printf("%i",  memory[mem_ptr]);
+                fflush(stdout);
                 break;
             case 44: // , input to curr mem from stdio
                 char temp;
                 scanf("%c", &temp);
                 memory[mem_ptr] = (int)temp;
+                fflush(stdin);
                 break;
             case 91: // [ loop begin
                 break;
