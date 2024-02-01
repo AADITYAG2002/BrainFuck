@@ -11,6 +11,8 @@ struct STACK {
     int stack_arr[STACK_SIZE];
     int top;
 };
+
+
 void push(struct STACK *stack, int val){
     stack->stack_arr[++stack->top] = val;
 }
@@ -52,8 +54,17 @@ void  interpreter(char *program){
                 fflush(stdin);
                 break;
             case 91: // [ loop begin
+                // if (memory[mem_ptr]){
+                    
+                // }
+                push(stackptr, inst_ptr);
                 break;
             case 93: // ] loop end
+                if (memory[mem_ptr]){
+                    inst_ptr = stackptr->stack_arr[stackptr->top]-1;
+                    break;
+                }
+                (void)pop(stackptr);
                 break;         
             default:
                 break;
