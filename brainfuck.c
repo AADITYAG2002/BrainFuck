@@ -44,7 +44,7 @@ void  interpreter(char *program){
                 memory[mem_ptr]--;
                 break;
             case 46: // . output curr mem to stdio
-                printf("%i",  memory[mem_ptr]);
+                printf("%c",  memory[mem_ptr]);
                 fflush(stdout);
                 break;
             case 44: // , input to curr mem from stdio
@@ -54,17 +54,23 @@ void  interpreter(char *program){
                 fflush(stdin);
                 break;
             case 91: // [ loop begin
-                // if (memory[mem_ptr]){
-                    
-                // }
-                push(stackptr, inst_ptr);
+                if(stackptr->top == -1){
+                    push(stackptr, inst_ptr);
+                    break;
+                }
+                if(memory[mem_ptr]){
+                    (void)pop(stackptr);
+                    push(stackptr, inst_ptr);
+                    break;
+                }
+                inst_ptr = pop(stackptr)-1;
                 break;
             case 93: // ] loop end
                 if (memory[mem_ptr]){
-                    inst_ptr = stackptr->stack_arr[stackptr->top]-1;
-                    break;
+                    int temp_inst = pop(stackptr);
+                    push(stackptr, inst_ptr);
+                    inst_ptr = temp_inst - 1;
                 }
-                (void)pop(stackptr);
                 break;         
             default:
                 break;
